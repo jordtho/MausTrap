@@ -21,7 +21,6 @@ namespace Assets.Scripts.Components
 
         void Update()
         {
-
             var dir = new Vector2()
             {
                 x = Input.GetAxisRaw("Horizontal"),
