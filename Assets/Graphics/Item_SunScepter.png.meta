@@ -1,0 +1,454 @@
+fileFormatVersion: 2
+guid: efd21fc4024ab31478d09b2801f1027d
+timeCreated: 1531614375
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Item_SunScepter_0
+    21300002: Item_SunScepter_1
+    21300004: Item_SunScepter_2
+    21300006: Item_SunScepter_3
+    21300008: Item_SunScepter_4
+    21300010: Item_SunScepter_5
+    21300012: Item_SunScepter_6
+    21300014: Item_SunScepter_7
+    21300016: Item_SunScepter_8
+    21300018: Item_SunScepter_9
+    21300020: Item_SunScepter_10
+    21300022: Item_SunScepter_11
+    21300024: Item_SunScepter_12
+    21300026: Item_SunScepter_13
+    21300028: Item_SunScepter_14
+    21300030: Item_SunScepter_15
+    21300032: Item_SunScepter_16
+    21300034: Item_SunScepter_17
+    21300036: Item_SunScepter_18
+    21300038: Item_SunScepter_19
+    21300040: Item_SunScepter_20
+    21300042: Item_SunScepter_21
+    21300044: Item_SunScepter_22
+    21300046: Item_SunScepter_23
+    21300048: Item_SunScepter_24
+    21300050: Item_SunScepter_25
+    21300052: Item_SunScepter_26
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 16
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Item_SunScepter_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 63
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_1
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 63
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_2
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 63
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_3
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 63
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_4
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 63
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_5
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 63
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_6
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 63
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_7
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 63
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_8
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 63
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 42
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_10
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 42
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_11
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 42
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_12
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 42
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_13
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 42
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_14
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 42
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_15
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 42
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_16
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 42
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_17
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 42
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 10
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_19
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 10
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_20
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 10
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_21
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 10
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_22
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 10
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_23
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 10
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_24
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 10
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_25
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 10
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Item_SunScepter_26
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 10
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
