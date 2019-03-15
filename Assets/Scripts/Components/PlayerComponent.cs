@@ -12,6 +12,8 @@ namespace Assets.Scripts.Components
         public MenuComponent _menuComponent;
         public DialogComponent _dialogComponent;
 
+        public IEnumerator DialogCoroutine { get; set; }
+
         private void Awake()
         {
             SetInputs(InputType.Character);
@@ -69,7 +71,11 @@ namespace Assets.Scripts.Components
             _playerInput.ButtonB = () => _dialogComponent.Cancel();
         }
 
-        public void AwaitDialog(string text, DialogAwaitType dialogAwaitType) => StartCoroutine(IAwaitDialog(text, dialogAwaitType));
+        public void AwaitDialog(string text, DialogAwaitType dialogAwaitType)
+        {
+            DialogCoroutine = IAwaitDialog(text, dialogAwaitType);
+            StartCoroutine(DialogCoroutine);
+        }
 
         private IEnumerator IAwaitDialog(string text, DialogAwaitType dialogAwaitType)
         {

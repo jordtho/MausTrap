@@ -1,22 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Helpers;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Components
 {
     public class InventoryComponent : MonoBehaviour
     {
-        private List<Item> _items = new List<Item>();
+        public List<Item> _items = new List<Item>();
 
         public Item GetDefaultItem() => (_items.Count > 0) ? _items[0] : null;
 
         public Item AddContents(Item item)
         {
-            if (!_items.Contains(item))
+            if (!InventoryHelper.IsDuplicate(item, _items))
             {
                 _items.Add(item);
+                //ItemGetAnimation();
                 return null;
             }
-
             return item;
         }
     }

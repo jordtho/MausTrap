@@ -18,8 +18,6 @@ public class PlayerCharacterComponent : CharacterComponent
     public InventoryComponent _inventory;
     public Weapon _weapon = null;
 
-    public InteractionManager.Interaction OnInteract = (PlayerComponent player, InventoryComponent inventory, InteractableComponent interactable) => { };
-
     void Awake()
     {
         EquipItem(_inventory.GetDefaultItem());
@@ -94,17 +92,7 @@ public class PlayerCharacterComponent : CharacterComponent
 
     public void UpdateHealth(int value) => _healthBarComponent.SetCurrentHealth(value);
 
-    public InteractableComponent Interact(PlayerComponent player)
-    {
-        var interactable = ParseInteraction();
-
-        if (interactable != null)
-        {
-            OnInteract(player, player._playerCharacterComponent._inventory, interactable);
-        }
-
-        return interactable;
-    }
+    public void Interact(PlayerComponent player) => ParseInteraction()?.OnInteract(player, _inventory);
 
     public InteractableComponent ParseInteraction()
     {
