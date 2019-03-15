@@ -9,7 +9,11 @@ namespace Assets.Scripts.Components
 
         public bool IsOpen { get => _isOpen; set => _isOpen = value; }
 
-        public override void OnInteract(PlayerComponent player, InventoryComponent inventory) => StartCoroutine(IOpenChest(player, inventory));
+        public override void OnInteract(PlayerComponent player, InventoryComponent inventory)
+        {
+            Item = GetComponentInChildren<Item>();
+            StartCoroutine(IOpenChest(player, inventory));
+        }
 
         private IEnumerator IOpenChest(PlayerComponent player, InventoryComponent inventory)
         {

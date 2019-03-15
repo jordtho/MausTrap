@@ -21,6 +21,8 @@ public class Item : MonoBehaviour {
     public bool m_Consumable = false;
     public Character m_Owner;
 
+    public Animator Animator { get; set; }
+
     public void UseItem() {
 
         if(m_Consumable) {
@@ -64,6 +66,7 @@ public class Item : MonoBehaviour {
 
     void Awake() {
 
+        Animator = GetComponent<Animator>();
         HideSprite();
         if(gameObject.GetComponent<Pickup>()) { ShowSprite(); }
     }
@@ -88,5 +91,18 @@ public class Item : MonoBehaviour {
         //Create instance of Projectile (Test code to begin work on projectiles)
         GameObject m_NewProjectile = Instantiate(gameObject);
         GameManager.Instance.m_ActiveProjectiles.Add(m_NewProjectile);
+    }
+
+    public void ItemGetAnimation()
+    {
+        StartCoroutine(IItemGetAnimation());
+    }
+
+    public IEnumerator IItemGetAnimation()
+    {
+        Animator.SetInteger("state", 1);
+        ShowSprite();
+        yield return new WaitForSeconds(1.5f);
+        HideSprite();
     }
 }

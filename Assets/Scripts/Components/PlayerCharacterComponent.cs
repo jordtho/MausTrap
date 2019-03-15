@@ -7,7 +7,7 @@ using Assets.Scripts.Managers;
 
 public class PlayerCharacterComponent : CharacterComponent
 {
-    public AnimationHelper m_AnimationHelper;
+    public AnimHelper m_AnimationHelper;
 
     // View
     public Text _equippedItemQuantityTextComponent;
