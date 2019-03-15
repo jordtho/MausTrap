@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Player : Character {
 
     public DialogBox m_DialogBox;
-    public AnimationHelper m_AnimationHelper;
+    public AnimHelper m_AnimationHelper;
 
     public bool m_Acknowledge = true;
 

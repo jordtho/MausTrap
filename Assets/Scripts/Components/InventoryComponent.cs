@@ -15,7 +15,8 @@ namespace Assets.Scripts.Components
             if (!InventoryHelper.IsDuplicate(item, _items))
             {
                 _items.Add(item);
-                //ItemGetAnimation();
+                item.ItemGetAnimation();
+
                 return null;
             }
             return item;
