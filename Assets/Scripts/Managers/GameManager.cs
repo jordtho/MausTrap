@@ -1,6 +1,4 @@
-﻿using Assets.Scripts.Components;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +7,6 @@ namespace Assets.Scripts.Managers
     public class GameManager : Singleton<GameManager>
     {
         protected GameManager() { }
-
-        public InteractionManager _interactionManager;
 
         //Global Fields
 
@@ -37,7 +33,6 @@ namespace Assets.Scripts.Managers
         void Awake()
         {
             DontDestroyOnLoad(gameObject); //Don't destroy our Game Manager object between scene transitions
-            _interactionManager.Initialize(_playerCharacter);
         }
     }
 }

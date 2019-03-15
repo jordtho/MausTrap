@@ -2,9 +2,10 @@
 
 namespace Assets.Scripts.Components
 {
-    public class InteractableComponent : MonoBehaviour
+    public abstract class InteractableComponent : MonoBehaviour
     {
         private SpriteRenderer _spriteRenderer;
+        private Sprite _defaultSprite;
         public Sprite _alternateSprite;
 
         public string _dialog;
@@ -16,8 +17,13 @@ namespace Assets.Scripts.Components
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            _defaultSprite = _spriteRenderer.sprite;
         }
 
+        public abstract void OnInteract(PlayerComponent player, InventoryComponent inventory);
+
         public void UseAlternateSprite() => _spriteRenderer.sprite = _alternateSprite;
+
+        public void ReplaceDefaultSprite() => _spriteRenderer.sprite = _defaultSprite;
     }
 }
