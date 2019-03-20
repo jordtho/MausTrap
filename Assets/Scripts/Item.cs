@@ -22,6 +22,7 @@ public class Item : MonoBehaviour {
     public Character m_Owner;
 
     public Animator Animator { get; set; }
+    public SpriteRenderer SpriteRenderer { get; set; }
 
     public void UseItem() {
 
@@ -67,6 +68,7 @@ public class Item : MonoBehaviour {
     void Awake() {
 
         Animator = GetComponent<Animator>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
         HideSprite();
         if(gameObject.GetComponent<Pickup>()) { ShowSprite(); }
     }
@@ -76,11 +78,11 @@ public class Item : MonoBehaviour {
     public virtual void Use(Character character) { }
 
     public void HideSprite() {
-        GetComponent<SpriteRenderer>().enabled = false;
+        SpriteRenderer.enabled = false;
     }
 
     public void ShowSprite() {
-        GetComponent<SpriteRenderer>().enabled = true;
+        SpriteRenderer.enabled = true;
     }
 
     void ProcessProjectile() {

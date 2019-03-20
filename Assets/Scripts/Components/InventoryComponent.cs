@@ -21,5 +21,7 @@ namespace Assets.Scripts.Components
             }
             return item;
         }
+
+        public void Open() => throw new System.NotImplementedException();
     }
 }

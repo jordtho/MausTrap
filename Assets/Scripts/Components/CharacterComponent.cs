@@ -23,6 +23,7 @@ public class CharacterComponent : MonoBehaviour
     public bool _invincible;
     public int _health;
     public int _defense;
+    public int _money;
 
     public List<InputDirection> _inputs;
     public Vector2 _curDir = Vector2.zero;
@@ -72,9 +73,9 @@ public class CharacterComponent : MonoBehaviour
     {
         if (!_invincible)
         {
-            int trueDamage = (damage - _defense >= GameManager.Instance.m_MinimumDamage) ? damage - _defense : GameManager.Instance.m_MinimumDamage;
+            InvincibilityFrames();
+            int trueDamage = (damage - _defense >= 1) ? damage - _defense : 1;
             _health = (_health - trueDamage >= 0) ? _health - trueDamage : 0;
-            InvincibilityFrames();            
 
             if (_health <= 0 && !_animator.GetBool("dead"))
             {
@@ -99,11 +100,14 @@ public class CharacterComponent : MonoBehaviour
         foreach (InputDirection input in _inputs) { _queueText.text += input.ToString() + "\n"; }
     }
 
-    private void InvincibilityFrames() => StartCoroutine(IInvincibilityFrames());
+    private void InvincibilityFrames()
+    {
+        _invincible = true;
+        StartCoroutine(IInvincibilityFrames());
+    }
 
     private IEnumerator IInvincibilityFrames()
     {
-        _invincible = true;
         float _time = 0f;
         int _i = 1;
 
@@ -121,7 +125,7 @@ public class CharacterComponent : MonoBehaviour
 
     public void Knockback(Vector2 direction, float force) => StartCoroutine(IKnockback(direction, force));
 
-    IEnumerator IKnockback(Vector2 direction, float force)
+    private IEnumerator IKnockback(Vector2 direction, float force)
     {
         _controlLoss = true;
         _rigidbody.velocity = direction * force;

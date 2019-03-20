@@ -98,7 +98,7 @@ public class Player : Character {
 
     public void UpdateHealth(int value) {
 
-        GameManager.Instance.m_HealthHUD.SetCurrentHealth(value);
+        //GameManager.Instance.m_HealthHUD.SetCurrentHealth(value);
     }
 
     public Interactable ParseInteraction() {
