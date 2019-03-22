@@ -21,6 +21,7 @@ public class CharacterComponent : MonoBehaviour
     public float _moveSpeedMultiplier;
 
     public bool _invincible;
+    public int _maxHealth;
     public int _health;
     public int _defense;
     public int _money;
@@ -68,6 +69,8 @@ public class CharacterComponent : MonoBehaviour
         // Debug
         if (_queueText != null) { UpdateQueueText(); }
     }
+
+    public virtual void RestoreHealth(int value) => _health += (_health + value > _maxHealth) ? 0 : value;
 
     public virtual void TakeDamage(int damage)
     {

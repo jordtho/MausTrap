@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.Components
 {
-    public class MenuComponent : MonoBehaviour
+    public abstract class MenuComponent : MonoBehaviour
     {
         public Cursor _cursor;
 

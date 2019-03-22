@@ -14,8 +14,11 @@ public class PlayerCharacterComponent : CharacterComponent
     public InventoryComponent _inventory;
     public Weapon _weapon = null;
 
+    private Animator Animator { get; set; }
+
     void Awake()
     {
+        Animator = GetComponent<Animator>();
         EquipItem(_inventory.GetDefaultItem());
         _HUD.UpdateHealth(_health);
         _HUD.UpdateMoney(_money);
@@ -30,26 +33,16 @@ public class PlayerCharacterComponent : CharacterComponent
         }
     }
 
-    public void OnTriggerExit2D(Collider2D collider)
-    {
-        if (collider.GetComponent<Pickup>())
-        {
-            collider.GetComponent<Pickup>().m_CanInteract = true;
-        }
-    }
-
-    public void OnCollisionExit2D(Collision2D coll)
-    {
-        if (coll.collider.GetComponent<Pickup>())
-        {
-            coll.collider.GetComponent<Pickup>().m_CanInteract = true;
-        }
-    }
-
     public void EquipItem(Item item)
     {
         _equippedItem = item;
         _HUD.UpdateEquippedItem(item);
+    }
+
+    public override void RestoreHealth(int value)
+    {
+        base.RestoreHealth(value);
+        _HUD.UpdateHealth(_health);
     }
 
     public override void TakeDamage(int damage)
@@ -85,16 +78,13 @@ public class PlayerCharacterComponent : CharacterComponent
 
     private IEnumerator IAttack()
     {
-        GetComponent<Animator>().SetBool("attacking", true);
+        Animator.SetBool("attacking", true);
+        var multiplier = _moveSpeedMultiplier;
+        _moveSpeedMultiplier = 0.0f;
 
-        float m_OriginalMovespeed = GetComponent<Player>().m_MoveSpeed;
+        yield return new WaitForSeconds(1f / 3f); //TODO: Replace with anim.ClipLength if possible: will need to figure out how to access the clip from the Animator
 
-        GetComponent<Player>().m_MoveSpeed = 0.0f * GetComponent<Player>().m_MoveSpeed;
-
-        yield return new WaitForSeconds(1f / 3f); //Replace with anim.ClipLength if possible: will need to figure out how to access the clip from the Animator
-
-        GetComponent<Animator>().SetBool("attacking", false);
-
-        GetComponent<Player>().m_MoveSpeed = m_OriginalMovespeed;
+        Animator.SetBool("attacking", false);
+        _moveSpeedMultiplier = multiplier;
     }
 }
