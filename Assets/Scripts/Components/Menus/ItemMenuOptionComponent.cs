@@ -1,17 +1,20 @@
-﻿using UnityEngine;
+﻿using UnityEngine.UI;
 
 namespace Assets.Scripts.Components
 {
     public class ItemMenuOptionComponent : MenuOptionComponent
     {
         public ItemComponent _item;
+        public Image _image;
 
         public ItemComponent Item { get => _item; set => _item = value; }
-        public SpriteRenderer SpriteRenderer { get; set; }
+        public Image Image { get => _image; set => _image = value; }
 
-        private void Awake()
+        public void SetItem(ItemComponent item)
         {
-            SpriteRenderer = GetComponent<SpriteRenderer>();
+            Item = item;
+            Image = GetComponent<Image>();
+            Image.enabled = true;
         }
 
         public override void OnSelect() => throw new System.NotImplementedException();

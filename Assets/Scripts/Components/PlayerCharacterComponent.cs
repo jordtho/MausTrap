@@ -10,7 +10,7 @@ public class PlayerCharacterComponent : CharacterComponent
     public HeadsUpDisplayComponent _HUD;
 
     // Model
-    public Item _equippedItem;
+    public ItemComponent _equippedItem;
     public InventoryComponent _inventory;
     public Weapon _weapon = null;
 
@@ -33,7 +33,7 @@ public class PlayerCharacterComponent : CharacterComponent
         }
     }
 
-    public void EquipItem(Item item)
+    public void EquipItem(ItemComponent item)
     {
         _equippedItem = item;
         _HUD.UpdateEquippedItem(item);
@@ -70,11 +70,7 @@ public class PlayerCharacterComponent : CharacterComponent
         if (!GetComponent<Animator>().GetBool("attacking")) { StartCoroutine(IAttack()); }
     }
 
-    public void UseItem() => _equippedItem.UseItem();
-
-    public void OpenMap() => throw new System.NotImplementedException();
-
-    public void OpenInventory() => _inventory.Open();
+    public void UseItem() => throw new System.NotImplementedException();
 
     private IEnumerator IAttack()
     {

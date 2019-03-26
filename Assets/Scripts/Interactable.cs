@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Assets.Scripts.Interfaces;
 using Assets.Scripts.Managers;
 
-public class Interactable : MonoBehaviour, IInteractable
+public class Interactable : MonoBehaviour
 {
 
     public Player m_InteractingPlayer = null;
@@ -104,10 +103,5 @@ public class Interactable : MonoBehaviour, IInteractable
 
         while(!m_InteractingPlayer.m_Acknowledge) { yield return null; }
         GetComponent<SpriteRenderer>().sprite = m_DefaultSprite;
-    }
-
-    public void GetInteraction(IPlayerCharacter playerController)
-    {
-        throw new System.NotImplementedException();
     }
 }

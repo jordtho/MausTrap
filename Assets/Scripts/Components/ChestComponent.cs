@@ -6,12 +6,13 @@ namespace Assets.Scripts.Components
     public class ChestComponent : InteractableComponent
     {
         public bool _isOpen;
+        public bool _randomize = false;
 
         public bool IsOpen { get => _isOpen; set => _isOpen = value; }
 
         public override void OnInteract(PlayerComponent player, InventoryComponent inventory)
         {
-            Item = GetComponentInChildren<Item>();
+            Item = GetComponentInChildren<ItemComponent>();
             StartCoroutine(IOpenChest(player, inventory));
         }
 

@@ -28,7 +28,7 @@ public class Player : Character {
         m_Animator = GetComponent<Animator>();
         m_Collider = GetComponent<Collider2D>();
         m_PlayerStateStack.Add(m_PlayerState);
-        m_EquippedItem = m_Inventory.m_ItemList[0];
+        //m_EquippedItem = m_Inventory.m_ItemList[0];
         UpdateEquippedItemQuantityText();
 
         UpdateHealth(m_HP);

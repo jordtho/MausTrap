@@ -1,19 +1,16 @@
-﻿using System.Collections.Generic;
-
-namespace Assets.Scripts.Components.Menus
+﻿namespace Assets.Scripts.Components
 {
     public class InventoryMenuComponent : MenuComponent
     {
-        public List<ItemMenuOptionComponent> _itemOptions;
-
-        public void AddItemToMenu(ItemComponent item)
+        public void AddItemToInventoryMenu(ItemComponent item)
         {
-            foreach (var option in _itemOptions)
+            foreach (var option in _options)
             {
-                if (option.name == item.name)
+                var itemOption = (ItemMenuOptionComponent)option;
+
+                if (itemOption.name == item.name)
                 {
-                    option.SpriteRenderer.enabled = true;
-                    option.Item = item;
+                    itemOption.SetItem(item);
                     return;
                 }
             }

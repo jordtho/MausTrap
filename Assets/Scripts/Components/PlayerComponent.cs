@@ -9,10 +9,15 @@ namespace Assets.Scripts.Components
         public PlayerInputComponent _playerInput;
 
         public PlayerCharacterComponent _playerCharacterComponent;
-        public MenuComponent _menuComponent;
         public DialogComponent _dialogComponent;
+        public InventoryMenuComponent _inventoryMenuComponent;
+        public MapComponent _mapComponent;
+        public MenuComponent _menuComponent;
 
-        public IEnumerator DialogCoroutine { get; set; }
+        public IEnumerator DialogCoroutine { get; private set; }
+        public IEnumerator InventoryCoroutine { get; private set; }
+        public IEnumerator MapCoroutine { get; private set; }
+        public IEnumerator MenuCoroutine { get; private set; }
 
         private void Awake()
         {
@@ -27,6 +32,7 @@ namespace Assets.Scripts.Components
             {
                 case InputType.Character: { SetInputCharacter(); } break;
                 case InputType.Menu: { SetInputMenu(); } break;
+                case InputType.Inventory: { SetInputInventory(); break; }
                 case InputType.Dialog: { SetInputDialog(); } break;
                 default:
                     Debug.Log($"Could not set {inputType}");
@@ -54,8 +60,22 @@ namespace Assets.Scripts.Components
             _playerInput.DirectionalPad = _playerCharacterComponent.Move;
             _playerInput.ButtonA = () => _playerCharacterComponent.Interact(this);
             _playerInput.ButtonB = _playerCharacterComponent.Attack;
-            //_playerInput.ButtonX += _menuComponent.OpenMenu;
+            _playerInput.ButtonX = () => AwaitInventory();
             _playerInput.ButtonY = _playerCharacterComponent.UseItem;
+        }
+
+        private void SetInputDialog()
+        {
+            _playerInput.ButtonA = () => _dialogComponent.Accept();
+            _playerInput.ButtonB = () => _dialogComponent.Cancel();
+        }
+
+        private void SetInputInventory()
+        {
+            _playerInput.DirectionalPad = _inventoryMenuComponent.Move;
+            _playerInput.ButtonA = () => _inventoryMenuComponent.Accept();
+            _playerInput.ButtonB = () => _inventoryMenuComponent.Cancel();
+            _playerInput.ButtonX = () => _inventoryMenuComponent.CloseMenu();
         }
 
         private void SetInputMenu()
@@ -63,12 +83,7 @@ namespace Assets.Scripts.Components
             _playerInput.DirectionalPad = _menuComponent.Move;
             _playerInput.ButtonA = () => _menuComponent.Accept();
             _playerInput.ButtonB = () => _menuComponent.Cancel();
-        }
-
-        private void SetInputDialog()
-        {
-            _playerInput.ButtonA = () => _dialogComponent.Accept();
-            _playerInput.ButtonB = () => _dialogComponent.Cancel();
+            _playerInput.ButtonStart = () => _menuComponent.CloseMenu();
         }
 
         public void AwaitDialog(string text, DialogAwaitType dialogAwaitType)
@@ -82,7 +97,55 @@ namespace Assets.Scripts.Components
             SetInputs(InputType.Dialog);
             _dialogComponent.CreateDialog(text, dialogAwaitType);
 
-            while(_dialogComponent._active) { yield return null; }
+            while(_dialogComponent.isActiveAndEnabled) { yield return null; }
+
+            SetInputs(InputType.Character);
+        }
+
+        public void AwaitInventory()
+        {
+            InventoryCoroutine = IAwaitInventory();
+            StartCoroutine(InventoryCoroutine);
+        }
+
+        private IEnumerator IAwaitInventory()
+        {
+            SetInputs(InputType.Inventory);
+            _inventoryMenuComponent.OpenMenu();
+
+            while (_inventoryMenuComponent.isActiveAndEnabled) { yield return null; }
+
+            SetInputs(InputType.Character);
+        }
+
+        public void AwaitMap()
+        {
+            MapCoroutine = IAwaitMap();
+            StartCoroutine(MapCoroutine);
+        }
+
+        private IEnumerator IAwaitMap()
+        {
+            SetInputs(InputType.Map);
+            _mapComponent.OpenMap();
+
+            while (_mapComponent.isActiveAndEnabled) { yield return null; }
+
+            SetInputs(InputType.Character);
+        }
+
+        public void AwaitMenu()
+        {
+            MenuCoroutine = IAwaitMenu();
+            StartCoroutine(MenuCoroutine);
+        }
+
+        private IEnumerator IAwaitMenu()
+        {
+            SetInputs(InputType.Menu);
+            _menuComponent.OpenMenu();
+
+            while (_menuComponent.isActiveAndEnabled) { yield return null; }
 
             SetInputs(InputType.Character);
         }

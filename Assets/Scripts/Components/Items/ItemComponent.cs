@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Assets.Scripts.Components
 {
-    public abstract class ItemComponent : MonoBehaviour
+    public class ItemComponent : MonoBehaviour
     {
         public int _quantity;
         public bool _consumable;
-        public float _cooldown;
+        //public float _cooldown;
 
         public Animator Animator { get; set; }
         public SpriteRenderer SpriteRenderer { get; set; }

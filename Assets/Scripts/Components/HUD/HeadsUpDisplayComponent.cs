@@ -8,7 +8,7 @@ namespace Assets.Scripts.Components
         public MoneyHUDComponent _money;
         public HealthBarHUDComponent _healthBar;
 
-        public void UpdateEquippedItem(Item item) => _equippedItem.UpdateEquippedItemComponent(item);
+        public void UpdateEquippedItem(ItemComponent item) => _equippedItem.UpdateEquippedItemComponent(item);
 
         public void UpdateHealth(int value) => _healthBar.SetCurrentHealth(value);
 

@@ -9,15 +9,23 @@ namespace Assets.Scripts.Components
         public Sprite _alternateSprite;
 
         public string _dialog;
-        public Item _item;
+        public ItemComponent _item;
 
         public string Dialog { get => _dialog; set => _dialog = value; }
-        public Item Item { get => _item; set => _item = value; }
+        public ItemComponent Item { get => _item; set => _item = value; }
 
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _defaultSprite = _spriteRenderer.sprite;
+
+            var items = GetComponentsInChildren<ItemComponent>();
+            if (items.Length > 0)
+            {
+                if (Item == null) { Item = items[0]; }
+                Item.SpriteRenderer = Item.GetComponent<SpriteRenderer>();
+                Item.SpriteRenderer.enabled = false;
+            }
         }
 
         public abstract void OnInteract(PlayerComponent player, InventoryComponent inventory);

@@ -8,9 +8,9 @@ namespace Assets.Scripts.Components
         public Image _equippedItemImageComponent;
         public Text _equippedItemTextComponent;
 
-        public void UpdateEquippedItemComponent(Item item)
+        public void UpdateEquippedItemComponent(ItemComponent item)
         {
-            _equippedItemTextComponent.text = item?.m_Quantity.ToString();
+            _equippedItemTextComponent.text = item?._quantity.ToString();
             _equippedItemImageComponent.sprite = item?.SpriteRenderer.sprite;
             _equippedItemTextComponent.enabled = item != null;
             _equippedItemImageComponent.enabled = item != null;
