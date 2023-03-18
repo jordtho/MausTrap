@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.Components
+namespace Assets.Scripts.Components.Items
 {
     public abstract class ProjectileComponent : MonoBehaviour
     {

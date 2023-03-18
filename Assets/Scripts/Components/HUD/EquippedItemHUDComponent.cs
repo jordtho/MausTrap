@@ -1,19 +1,21 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Components.Items;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Components
 {
     public class EquippedItemHUDComponent : MonoBehaviour
     {
-        public Image _equippedItemImageComponent;
-        public Text _equippedItemTextComponent;
+        [SerializeField] private Image _equippedItemImageComponent;
+        [SerializeField] private Text _equippedItemTextComponent;
 
-        public void UpdateEquippedItemComponent(ItemComponent item)
+        public virtual void UpdateEquippedItem(ItemComponent item)
         {
-            _equippedItemTextComponent.text = item?._quantity.ToString();
-            _equippedItemImageComponent.sprite = item?.SpriteRenderer.sprite;
-            _equippedItemTextComponent.enabled = item != null;
+            _equippedItemImageComponent.sprite = item?.GetComponent<SpriteRenderer>().sprite;
             _equippedItemImageComponent.enabled = item != null;
+
+            _equippedItemTextComponent.text = item != null && item is ConsumableComponent ? ((ConsumableComponent)item).Quantity.ToString() : "";
+            _equippedItemTextComponent.enabled = item != null && item is ConsumableComponent;
         }
     }
 }

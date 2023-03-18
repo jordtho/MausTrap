@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Components
+﻿namespace Assets.Scripts.Components.Items
 {
     public abstract class RangedWeaponComponent : WeaponComponent
     {

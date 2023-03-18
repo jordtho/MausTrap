@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Enums
 {
-    public enum PickupType
+    public enum PowerupType
     {
         HEART,
         CASH_1,

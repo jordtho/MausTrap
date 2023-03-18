@@ -35,57 +35,6 @@ public class Player : Character {
         if(m_Inventory == null) { m_Inventory = GetComponentInChildren<Inventory>(); }
     }
 
-    void Update() {
-
-    }
-
-    public void OnTriggerStay2D(Collider2D collider) {
-
-        if(collider.GetComponentInParent<Enemy>()) {
-            collider.GetComponentInParent<Enemy>().AcquireTarget(this);
-        }
-    }
-
-    public void OnCollisionStay2D(Collision2D coll) {
-
-        if(coll.collider.GetComponent<Enemy>() && !m_IFramesActive) {
-            Knockback(coll.contacts[0].normal, coll.collider.GetComponent<Enemy>().m_CollisionKnockbackForce);
-            TakeDamage(coll.collider.GetComponent<Enemy>().m_CollisionDamage);
-        }
-    }
-
-    public void OnTriggerEnter2D(Collider2D collider) {
-
-        if(collider.GetComponent<Pickup>() && collider.GetComponent<Pickup>().m_CanInteract) {
-            collider.GetComponent<Pickup>().PickUpItem(this);
-        }
-    }
-
-    public void OnCollisionEnter2D(Collision2D coll) {
-
-        if(coll.collider.GetComponent<Pickup>() && coll.collider.GetComponent<Pickup>().m_CanInteract) {
-            coll.collider.GetComponent<Pickup>().PickUpItem(this);
-        }
-    }
-
-    public void OnTriggerExit2D(Collider2D collider) {
-
-        if(collider.GetComponent<Pickup>()) {
-            collider.GetComponent<Pickup>().m_CanInteract = true;
-        }
-
-        if(collider.GetComponentInParent<Enemy>()) {
-            collider.GetComponentInParent<Enemy>().DisengageTarget(this);
-        }
-    }
-
-    public void OnCollisionExit2D(Collision2D coll) {
-
-        if(coll.collider.GetComponent<Pickup>()) {
-            coll.collider.GetComponent<Pickup>().m_CanInteract = true;
-        }
-    }
-
     public void UpdateEquippedItemQuantityText() {
 
         m_EquippedItemQuantity.text = m_EquippedItem.m_Quantity.ToString();
@@ -103,7 +52,7 @@ public class Player : Character {
 
     public Interactable ParseInteraction() {
 
-        if(GameManager.Instance.m_DebugMode) {
+        if(GameManager.Instance.DebugMode) {
 
             Debug.DrawLine(
                 (m_Rigidbody.position + m_Collider.offset) + (m_CharacterFacingVector * .625f) + (new Vector2(m_CharacterFacingVector.y, m_CharacterFacingVector.x) * .375f),
@@ -118,7 +67,7 @@ public class Player : Character {
 
         if(hit.collider != null) {
 
-            if(GameManager.Instance.m_DebugMode) {
+            if(GameManager.Instance.DebugMode) {
                 Debug.Log("Interaction with " + hit.collider.gameObject.name + " was successful!");
             }
 

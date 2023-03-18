@@ -1,31 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.Components
+namespace Assets.Scripts.Components.Items
 {
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(SpriteRenderer))]
     public class ItemComponent : MonoBehaviour
     {
-        public int _quantity;
-        public bool _consumable;
-        //public float _cooldown;
+        [SerializeField] protected float _cooldown;
 
-        public Animator Animator { get; set; }
-        public SpriteRenderer SpriteRenderer { get; set; }
-
-        void Awake()
-        {
-            Animator = GetComponent<Animator>();
-            SpriteRenderer = GetComponent<SpriteRenderer>();
-        }
+        public virtual void Use(CharacterComponent user) => throw new NotImplementedException();
 
         public void ItemGetAnimation() => StartCoroutine(IItemGetAnimation());
 
-        private IEnumerator IItemGetAnimation()
+        public IEnumerator IItemGetAnimation()
         {
-            Animator.SetInteger("state", 1);
-            SpriteRenderer.enabled = true;
+            GetComponent<Animator>().SetInteger("state", 1);
+            Show();
             yield return new WaitForSeconds(1.5f);
-            SpriteRenderer.enabled = false;
+            Hide();
         }
+
+        public void Show() => GetComponent<SpriteRenderer>().enabled = true;
+
+        public void Hide() => GetComponent<SpriteRenderer>().enabled = false;
     }
 }

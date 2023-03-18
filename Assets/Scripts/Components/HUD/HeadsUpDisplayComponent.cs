@@ -4,14 +4,33 @@ namespace Assets.Scripts.Components
 {
     public class HeadsUpDisplayComponent : MonoBehaviour
     {
-        public EquippedItemHUDComponent _equippedItem;
-        public MoneyHUDComponent _money;
-        public HealthBarHUDComponent _healthBar;
+        #region Fields
 
-        public void UpdateEquippedItem(ItemComponent item) => _equippedItem.UpdateEquippedItemComponent(item);
+        private EquippedItemHUDComponent _equippedItemComponent;
+        private MoneyHUDComponent _moneyComponent;
+        private HealthBarHUDComponent _healthBarComponent;
 
-        public void UpdateHealth(int value) => _healthBar.SetCurrentHealth(value);
+        #endregion
 
-        public void UpdateMoney(int value) => _money.UpdateMoneyComponent(value);
+        #region Unity Awake
+
+        private void Awake()
+        {
+            _equippedItemComponent = _equippedItemComponent ?? GetComponentInChildren<EquippedItemHUDComponent>();
+            _moneyComponent = _moneyComponent ?? GetComponentInChildren<MoneyHUDComponent>();
+            _healthBarComponent = _healthBarComponent ?? GetComponentInChildren<HealthBarHUDComponent>();
+        }
+
+        #endregion
+
+        #region Properties
+
+        public EquippedItemHUDComponent EquippedItemComponent { get => _equippedItemComponent; set => _equippedItemComponent = value; }
+
+        public MoneyHUDComponent MoneyComponent { get => _moneyComponent; set => _moneyComponent = value; }
+
+        public HealthBarHUDComponent HealthBarComponent { get => _healthBarComponent; set => _healthBarComponent = value; }
+
+        #endregion
     }
 }

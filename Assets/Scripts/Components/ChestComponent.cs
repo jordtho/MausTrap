@@ -1,50 +1,68 @@
-﻿using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Components.Items;
+using Assets.Scripts.Enums;
 using System.Collections;
+using UnityEngine;
 
 namespace Assets.Scripts.Components
 {
     public class ChestComponent : InteractableComponent
     {
-        public bool _isOpen;
-        public bool _randomize = false;
+        #region Fields
 
-        public bool IsOpen { get => _isOpen; set => _isOpen = value; }
+        [SerializeField] private bool _isOpen;
+        [SerializeField] private bool _randomize = false;
+        [SerializeField] private Sprite _closedSprite;
+        [SerializeField] private Sprite _openSprite;
+
+        #endregion
+
+        #region Properties
+
+        public bool Randomize { get => _randomize; set => _randomize = value; }
+
+        #endregion
+
+        #region Methods
 
         public override void OnInteract(PlayerComponent player, InventoryComponent inventory)
         {
-            Item = GetComponentInChildren<ItemComponent>();
             StartCoroutine(IOpenChest(player, inventory));
         }
 
         private IEnumerator IOpenChest(PlayerComponent player, InventoryComponent inventory)
         {
-            if (IsOpen) { yield break; }
+            if (_isOpen || player.Character.Facing != Vector2.up) { yield break; }
 
-            UseAlternateSprite();
+            _spriteRenderer.sprite = _openSprite;
             AudioManager.Instance.m_AudioSource.PlayOneShot(AudioManager.Instance.m_OpenChestSoundEffect, 0.1f);
 
-            if (Item != null)
+            if (_item != null)
             {
-                Item = inventory.AddContents(Item);
+                yield return inventory.IAddContents(_item, player, (ItemComponent item) => { _item = item; });
 
-                if (Item == null)
+                if (_item != null)
                 {
-                    AudioManager.Instance.m_AudioSource.PlayOneShot(AudioManager.Instance.m_ItemGetSoundEffect, 0.1f);
+                    player.AwaitDialog($"You already have a {_item.name}!\nCannot carry more.", DialogAwaitType.Acknowledge, InputType.Character);
+
+                    yield return player.DialogCoroutine;
+
+                    _spriteRenderer.sprite = _closedSprite;
                 }
                 else
                 {
-                    player.AwaitDialog($"You already have a { Item.name }!\nCannot carry more.", DialogAwaitType.Acknowledge);
-                    yield return player.DialogCoroutine;
-                    ReplaceDefaultSprite();
+                    gameObject.layer = 0;
                 }
             }
             else
             {
-                player.AwaitDialog("It's empty.", DialogAwaitType.Acknowledge);
+                player.AwaitDialog("It's empty.", DialogAwaitType.Acknowledge, InputType.Character);
+
                 yield return player.DialogCoroutine;
             }
 
-            IsOpen = (Item == null);
+            _isOpen = (_item == null);
         }
+
+        #endregion
     }
 }

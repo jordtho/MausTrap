@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-
-namespace Assets.Scripts.Components
+﻿namespace Assets.Scripts.Components
 {
-    public abstract class MenuOptionComponent : MonoBehaviour
+    public class MenuOptionComponent : MenuOptionBaseComponent
     {
-        public abstract void OnSelect();
+        public override void OnSelect() => throw new System.NotImplementedException();
     }
 }

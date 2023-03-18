@@ -1,54 +1,45 @@
 ﻿using Assets.Scripts.Components;
+using Assets.Scripts.Components.Items;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Old;
+using Assets.Scripts.Models;
 using System.Collections;
 using UnityEngine;
 
 public class PlayerCharacterComponent : CharacterComponent
 {
-    // View
     public HeadsUpDisplayComponent _HUD;
-
-    // Model
+    public PlayerComponent _player;
     public ItemComponent _equippedItem;
     public InventoryComponent _inventory;
-    public Weapon _weapon = null;
+    public WeaponComponent _weapon = null;
 
-    private Animator Animator { get; set; }
+    public PlayerComponent Player { get => _player; }
+    public InventoryComponent Inventory { get => _inventory; }
 
     void Awake()
     {
-        Animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         EquipItem(_inventory.GetDefaultItem());
-        _HUD.UpdateHealth(_health);
-        _HUD.UpdateMoney(_money);
-    }
-
-    public void OnCollisionStay2D(Collision2D coll)
-    {
-        if (coll.collider.GetComponent<Enemy>() && !_invincible)
-        {
-            Knockback(coll.contacts[0].normal, coll.collider.GetComponent<Enemy>().m_CollisionKnockbackForce);
-            TakeDamage(coll.collider.GetComponent<Enemy>().m_CollisionDamage);
-        }
+        _HUD.HealthBarComponent.UpdateHealth(_health);
+        _HUD.MoneyComponent.UpdateMoney(_money);
     }
 
     public void EquipItem(ItemComponent item)
     {
         _equippedItem = item;
-        _HUD.UpdateEquippedItem(item);
+        _HUD.EquippedItemComponent.UpdateEquippedItem(item);
     }
 
     public override void RestoreHealth(int value)
     {
         base.RestoreHealth(value);
-        _HUD.UpdateHealth(_health);
+        _HUD.HealthBarComponent.UpdateHealth(_health);
     }
 
-    public override void TakeDamage(int damage)
+    public override void ReceiveAttack(AttackModel attack)
     {
-        base.TakeDamage(damage);
-        _HUD.UpdateHealth(_health);
+        base.ReceiveAttack(attack);
+        _HUD.HealthBarComponent.UpdateHealth(_health);
     }
 
     public void Interact(PlayerComponent player) => ParseInteraction()?.OnInteract(player, _inventory);
@@ -58,7 +49,7 @@ public class PlayerCharacterComponent : CharacterComponent
         var start = _rigidbody.position + _collider.offset + (_facing * .625f) + (new Vector2(_facing.y, _facing.x) * .375f);
         var end = _rigidbody.position + _collider.offset + (_facing * .625f) - (new Vector2(_facing.y, _facing.x) * .375f);
 
-        if (GameManager.Instance.m_DebugMode) { Debug.DrawLine(start, end, Color.green); }
+        if (GameManager.Instance.DebugMode) { Debug.DrawLine(start, end, Color.green); }
         RaycastHit2D hit = Physics2D.Linecast(start, end, 1 << LayerMask.NameToLayer("Object"));
 
         return hit.collider?.GetComponent<InteractableComponent>();
@@ -66,21 +57,25 @@ public class PlayerCharacterComponent : CharacterComponent
 
     public void Attack()
     {
-        _weapon.Use();
-        if (!GetComponent<Animator>().GetBool("attacking")) { StartCoroutine(IAttack()); }
+        _weapon.Use(this);
+
+        if (!GetComponent<Animator>().GetBool("IsAttacking"))
+        {
+            StartCoroutine(IAttack());
+        }
     }
 
     public void UseItem() => throw new System.NotImplementedException();
 
     private IEnumerator IAttack()
     {
-        Animator.SetBool("attacking", true);
+        _animator.SetBool("IsAttacking", true);
         var multiplier = _moveSpeedMultiplier;
         _moveSpeedMultiplier = 0.0f;
 
-        yield return new WaitForSeconds(1f / 3f); //TODO: Replace with anim.ClipLength if possible: will need to figure out how to access the clip from the Animator
+        yield return new WaitForSeconds(1f / 3f); // TODO: Replace with anim.ClipLength if possible: will need to figure out how to access the clip from the Animator
 
-        Animator.SetBool("attacking", false);
+        _animator.SetBool("IsAttacking", false);
         _moveSpeedMultiplier = multiplier;
     }
 }

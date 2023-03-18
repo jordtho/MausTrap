@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,13 +6,11 @@ namespace Assets.Scripts.Components
 {
     public class HealthBarHUDComponent : MonoBehaviour
     {
-        public List<HeartHUDComponent> _hearts = new List<HeartHUDComponent>();
-
-        private IEnumerator FillCoroutine;
+        [SerializeField] private List<HeartHUDComponent> _hearts = new List<HeartHUDComponent>();
 
         public void SetMaximumHealth(int value) => throw new NotImplementedException();
 
-        public void SetCurrentHealth(int value)
+        public void UpdateHealth(int value)
         {
             for (int i = 0; i < _hearts.Count; i++)
             {

@@ -1,5 +1,7 @@
-﻿using Assets.Scripts.Helpers;
+﻿using Assets.Scripts.Enums;
+using Assets.Scripts.Helpers;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Models;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,19 +9,21 @@ using UnityEngine.UI;
 
 public class CharacterComponent : MonoBehaviour
 {
+    // Debugging
     public Text _queueText = null;
 
     // View
-    public Animator _animator;
-    public Collider2D _collider;
+    [SerializeField] protected Animator _animator;
+    [SerializeField] protected Collider2D _collider;
     public Rigidbody2D _rigidbody;
     public SpriteRenderer _spriteRenderer;
 
     public Vector2 _facing;
-    public float _rotation;
+    [SerializeField] private float _rotation;
     public float _moveSpeed;
     public float _moveSpeedMultiplier;
 
+    public FactionsEnum _faction;
     public bool _invincible;
     public int _maxHealth;
     public int _health;
@@ -31,6 +35,12 @@ public class CharacterComponent : MonoBehaviour
 
     // Model
     public bool _controlLoss = false;
+
+    public Collider2D Collider { get => _collider; }
+    public Vector2 Facing { get => _facing; }
+    public bool Invincible { get => _invincible; }
+    public FactionsEnum Faction { get => _faction; }
+    public float Rotation { get => _rotation; }
 
     public void Move(Vector2 inputs)
     {
@@ -72,19 +82,28 @@ public class CharacterComponent : MonoBehaviour
 
     public virtual void RestoreHealth(int value) => _health += (_health + value > _maxHealth) ? 0 : value;
 
-    public virtual void TakeDamage(int damage)
+    private int CalculateTrueDamage(int damage) => (damage - _defense > 0) ? damage - _defense : 1;
+
+    private void TakeDamage(int trueDamage) => _health = (_health - trueDamage >= 0) ? _health - trueDamage : 0;
+
+    private void CheckForDeath()
+    {
+        if (_health <= 0 && !_animator.GetBool("dead"))
+        {
+            Debug.Log($"Health: {_health}");
+            _animator.SetBool("dead", true);
+            Die();
+        }
+    }
+
+    public virtual void ReceiveAttack(AttackModel attack)
     {
         if (!_invincible)
         {
             InvincibilityFrames();
-            int trueDamage = (damage - _defense >= 1) ? damage - _defense : 1;
-            _health = (_health - trueDamage >= 0) ? _health - trueDamage : 0;
-
-            if (_health <= 0 && !_animator.GetBool("dead"))
-            {
-                _animator.SetBool("dead", true);
-                Die();
-            }
+            TakeDamage(CalculateTrueDamage(attack.Damage));
+            Knockback(attack.KnockbackDirection, attack.KnockbackForce);
+            CheckForDeath();
         }
     }
 
@@ -114,7 +133,7 @@ public class CharacterComponent : MonoBehaviour
         float _time = 0f;
         int _i = 1;
 
-        while (_time < GameManager.Instance.m_IFramesDuration)
+        while (_time < GameManager.Instance.IFramesDuration)
         {
             _spriteRenderer.enabled = _i > GameManager.Instance.m_IFrameFlickerRate ? true : false;
             if (_i < (11 - GameManager.Instance.m_IFrameFlickerRate) * 2) { ++_i; } else { _i = 1; }

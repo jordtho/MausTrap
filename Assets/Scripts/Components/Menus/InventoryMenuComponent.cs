@@ -1,4 +1,7 @@
-﻿namespace Assets.Scripts.Components
+﻿using Assets.Scripts.Components.Items;
+using System;
+
+namespace Assets.Scripts.Components
 {
     public class InventoryMenuComponent : MenuComponent
     {
@@ -8,7 +11,7 @@
             {
                 var itemOption = (ItemMenuOptionComponent)option;
 
-                if (itemOption.name == item.name)
+                if (itemOption.name.Equals(item.name, StringComparison.OrdinalIgnoreCase))
                 {
                     itemOption.SetItem(item);
                     return;

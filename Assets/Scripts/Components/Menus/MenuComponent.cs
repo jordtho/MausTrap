@@ -6,26 +6,39 @@ namespace Assets.Scripts.Components
 {
     public abstract class MenuComponent : MonoBehaviour
     {
-        public List<MenuOptionComponent> _options;
+        public MenuCursorComponent _cursor;
+        public Sprite _cursorSprite;
+        public bool _cursorFlicker;
+
+        public List<MenuOptionBaseComponent> _options;
         public int _columnCount = 1;
+        public bool _wrapOptions = false;
+
+        public List<MenuOptionBaseComponent> Options { get => _options; set => _options = value; }
+        public int ColumnCount { get => _columnCount; set => _columnCount = value; }
+        public bool WrapOptions { get => _wrapOptions; set => _wrapOptions = value; }
+
         private void Awake()
         {
-            _options = GetComponentsInChildren<MenuOptionComponent>().ToList();
+            _options = GetComponentsInChildren<MenuOptionBaseComponent>().ToList();
             gameObject.SetActive(false);
         }
 
-        public void OpenMenu() => gameObject.SetActive(true);
-
-        public void CloseMenu() => gameObject.SetActive(false);
-
-        public void Move(Vector2 inputs)
+        public virtual void OpenMenu()
         {
-            
+            gameObject.SetActive(true);
+            _cursor.StartCursor(this, _cursorFlicker);
+        }
+
+        public void CloseMenu()
+        {
+            _cursor.StopCursor();
+            gameObject.SetActive(false);
         }
 
         public void Accept()
         {
-
+            _options[_cursor.Focus].OnSelect();
         }
 
         public void Cancel()

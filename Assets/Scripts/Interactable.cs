@@ -73,17 +73,17 @@ public class Interactable : MonoBehaviour
     public void AddItem() {
                 
         if(!m_InteractingPlayer.m_Inventory.CheckForDuplicate(m_Item) || m_Item.m_Consumable) {
-            if(GameManager.Instance.m_DebugMode) { Debug.Log("No Duplicate Found for: " + m_Item.name); }
+            if(GameManager.Instance.DebugMode) { Debug.Log("No Duplicate Found for: " + m_Item.name); }
             m_InteractingPlayer.m_Inventory.AddContents(m_Item);
             m_Item.m_Owner = m_InteractingPlayer;
             m_ContainsItem = false;
             AudioManager.Instance.m_AudioSource.PlayOneShot(AudioManager.Instance.m_ItemGetSoundEffect, 0.5f);
 
         } else {
-            if(GameManager.Instance.m_DebugMode) { Debug.Log("Duplicate Found for: " + m_Item.name); }
+            if(GameManager.Instance.DebugMode) { Debug.Log("Duplicate Found for: " + m_Item.name); }
             m_InteractingPlayer.m_DialogBox.UpdateDialog("You already have a " + m_Item.name + "!\nCannot carry more.");
             StartCoroutine(ReplaceDefaultSprite());
-            if(GetComponent<Pickup>()) { GetComponent<Pickup>().m_CanInteract = false; }
+            // if(GetComponent<Pickup>()) { GetComponent<Pickup>().m_CanInteract = false; }
         }
 
         ItemGetAnimation();

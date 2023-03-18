@@ -75,7 +75,7 @@ public class Character : MonoBehaviour {
     public virtual void TakeDamage(int damage) {
 
         if(!m_IFramesActive) {
-            int _TrueDamage = (damage - m_Defense >= GameManager.Instance.m_MinimumDamage) ? damage - m_Defense : GameManager.Instance.m_MinimumDamage;
+            int _TrueDamage = (damage - m_Defense >= GameManager.Instance.MinimumDamage) ? damage - m_Defense : GameManager.Instance.MinimumDamage;
 
             InvincibilityFrames();
 
@@ -95,6 +95,7 @@ public class Character : MonoBehaviour {
 
     private IEnumerator IDeath() {
 
+        Debug.Log("Is this still being called?");
         //Eventually, instead of destroying Collider, Rigidbody, and GameObject they should be set inactive so that they can no longer be interacted with
 
         Destroy(GetComponent<Collider2D>()); 
@@ -120,7 +121,7 @@ public class Character : MonoBehaviour {
         float _time = 0f;
         int _i = 1;
 
-        while(_time < GameManager.Instance.m_IFramesDuration) {
+        while(_time < GameManager.Instance.IFramesDuration) {
 
             GetComponent<SpriteRenderer>().enabled = _i > GameManager.Instance.m_IFrameFlickerRate ? true : false;
 

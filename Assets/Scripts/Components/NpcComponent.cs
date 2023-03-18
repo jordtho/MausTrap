@@ -1,26 +1,37 @@
-﻿using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Components.Items;
+using Assets.Scripts.Enums;
+using System.Collections;
+using UnityEngine;
 
 namespace Assets.Scripts.Components
 {
+    [RequireComponent(typeof(CharacterComponent))]
     public class NpcComponent : InteractableComponent
     {
-        public Item m_RequiredFetchItem;
+        [SerializeField] private ItemComponent _requiredFetchItem;
 
         public override void OnInteract(PlayerComponent player, InventoryComponent inventory)
         {
-            if (Dialog != "") { player.AwaitDialog(Dialog, DialogAwaitType.Acknowledge); }
+            _item = GetComponentInChildren<ItemComponent>();
+            StartCoroutine(IInteract(player, inventory));
+        }
 
-            if (Item != null)
+        private IEnumerator IInteract(PlayerComponent player, InventoryComponent inventory)
+        {
+            if (_dialog != string.Empty)
             {
-                Item = inventory.AddContents(Item);
+                player.AwaitDialog(_dialog, DialogAwaitType.Acknowledge, InputType.Character);
+                yield return player.DialogCoroutine;
+            }
 
-                if (Item == null)
+            if (_item != null)
+            {
+                yield return inventory.IAddContents(_item, player, (ItemComponent item) => { _item = item; });
+
+                if (_item != null)
                 {
-                    AudioManager.Instance.m_AudioSource.PlayOneShot(AudioManager.Instance.m_ItemGetSoundEffect, 0.1f);
-                }
-                else
-                {
-                    player.AwaitDialog($"You already have a { Item.name }!\nCannot carry more.", DialogAwaitType.Acknowledge);
+                    player.AwaitDialog($"You already have a { _item.name }!\nCannot carry more.", DialogAwaitType.Acknowledge, InputType.Character);
+                    yield return player.DialogCoroutine;
                 }
             }
         }
